@@ -1,8 +1,11 @@
 package main
 
-import "testing"
-import "tutorials/concurrent-limiter/pool"
-import "tutorials/concurrent-limiter/work"
+import (
+	"testing"
+
+	"github.com/nkmr-jp/go_worker_pool/pool"
+	"github.com/nkmr-jp/go_worker_pool/work"
+)
 
 func BenchmarkConcurrent(b *testing.B) {
 	collector := pool.StartDispatcher(WorkerCount) // start up worker pool
@@ -14,10 +17,10 @@ func BenchmarkConcurrent(b *testing.B) {
 	}
 }
 
-func BenchmarkNonconcurrent(b *testing.B) {
+func BenchmarkNonConcurrent(b *testing.B) {
 	for n := 0; n < b.N; n++ {
-		for _, work := range work.CreateJobs(20) {
-			job.DoWork(work, 1)
+		for _, job := range work.CreateJobs(20) {
+			work.DoWork(job, 1)
 		}
 	}
 }
