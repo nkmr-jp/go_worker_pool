@@ -16,6 +16,7 @@ DEBUG=true go run main.go
 #> ...
 ```
 
+WorkerCount = 5
 ```sh
 # See: https://qiita.com/marnie_ms4/items/7014563083ca1d824905
 go test -bench . -benchmem
@@ -32,4 +33,27 @@ go test -bench . -benchmem
 #> BenchmarkNonConcurrent-12              1        20047928833 ns/op           2048 B/op         47 allocs/op
 #> PASS
 #> ok      github.com/nkmr-jp/go_worker_pool       23.572s
+```
+
+WorkerCount = 10
+```sh
+go test -bench . -benchmem
+#> starting worker:  1
+#> starting worker:  2
+#> starting worker:  3
+#> starting worker:  4
+#> starting worker:  5
+#> starting worker:  6
+#> starting worker:  7
+#> starting worker:  8
+#> starting worker:  9
+#> starting worker:  10
+#> goos: darwin
+#> goarch: amd64
+#> pkg: github.com/nkmr-jp/go_worker_pool
+#> cpu: Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz
+#> BenchmarkConcurrent-12                 1        1000470827 ns/op           14496 B/op        138 allocs/op
+#> BenchmarkNonConcurrent-12              1        20043945895 ns/op           2656 B/op         54 allocs/op
+#> PASS
+#> ok      github.com/nkmr-jp/go_worker_pool       21.148s
 ```
