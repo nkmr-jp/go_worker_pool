@@ -1,20 +1,20 @@
-package main 
+package main
 
 import (
 	"log"
-	//"./limiter"
-	"tutorials/concurrent-limiter/pool"
-	"tutorials/concurrent-limiter/work"
+
+	"github.com/nkmr-jp/go_worker_pool/pool"
+	"github.com/nkmr-jp/go_worker_pool/work"
 )
 
-const WORKER_COUNT = 5
-const JOB_COUNT = 100
+const WorkerCount = 5
+const JobCount = 100
 
 func main() {
 	log.Println("starting application...")
-	collector := pool.StartDispatcher(WORKER_COUNT) // start up worker pool
+	collector := pool.StartDispatcher(WorkerCount) // start up worker pool
 
-	for i, job := range work.CreateJobs(JOB_COUNT) {
-		collector.Work <-pool.Work{Job: job, ID: i}
+	for i, job := range work.CreateJobs(JobCount) {
+		collector.Work <- pool.Work{Job: job, ID: i}
 	}
-}	
+}
